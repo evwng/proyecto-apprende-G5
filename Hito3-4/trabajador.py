@@ -18,5 +18,5 @@ class Trabajador:
         print("\n")
         busqueda = Busqueda(prompt_usuario, taller)
         busqueda.buscar()
-        self._busqueda.append(busqueda)
+        self._busquedas.append(busqueda)
         return busqueda

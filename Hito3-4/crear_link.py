@@ -3,7 +3,8 @@ import json
 
 def crear_link(prompt_usuario, taller):
 
-    openai.api_key = "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"
+    #Colocar key de openai
+    openai.api_key = "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"
 
     prompt = "Genera un JSON con las indentaciones apropiadas a partir de la siguiente descripción de un taller. El diccionario debe contener la siguiente información:\n"
     prompt += "\n"
@@ -20,7 +21,7 @@ def crear_link(prompt_usuario, taller):
 
     completion = openai.Completion.create(engine = "text-davinci-003", prompt = prompt, max_tokens = 2000)
 
-    print(completion.choices[0].text)
+    #print(completion.choices[0].text)
 
     json_text=completion.choices[0].text
 
@@ -44,8 +45,8 @@ def crear_link(prompt_usuario, taller):
 
     json_data = json.loads(json_text)
 
-    tipo_tallerista = json_data["Tipo de Tallerista"]
+    tipo_tallerista = list(json_data.values())[0]
 
-    link = "https://www.superprof.cl/s/" + tipo_tallerista + "," + taller.get_lugar() + ",,,1.html"
+    link = "https://www.superprof.cl/s/" + tipo_tallerista + "," + taller.get_lugar() + ",1.html"
 
     return link
