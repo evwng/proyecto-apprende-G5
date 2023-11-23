@@ -4,6 +4,7 @@ import time
 import math
 import re
 
+'''
 # Dado un html de superprof retorna una lista de tuplas (link, nombre, precio)
 def get_teacher_list_old(html):
     list_ = []
@@ -17,6 +18,7 @@ def get_teacher_list_old(html):
         list_.append((link, nombre, precio))
         
     return list_
+'''
 
 def get_teacher_list(html):
     list_ = []
@@ -47,7 +49,7 @@ def orden_ratings(teacher):
 def get_list_from_link(url):
     driver = webdriver.Chrome()
     driver.get(url)
-    time.sleep(10) # Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript Odio JavaScript 
+    time.sleep(10)
     html = driver.page_source
     driver.quit()
     return get_teacher_list(html)
