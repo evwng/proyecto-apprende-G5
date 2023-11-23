@@ -1,7 +1,9 @@
 import openai
 import json
 
-def crear_link(prompt_usuario, taller):
+def crear_link(prompt_usuario):
+
+    lugar = "Providencia--Chile,-33.4314474,-70.6093325"
 
     #Colocar key de openai
     openai.api_key = "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"
@@ -20,8 +22,6 @@ def crear_link(prompt_usuario, taller):
     prompt += "los insumos tienen que ser consumibles"
 
     completion = openai.Completion.create(engine = "text-davinci-003", prompt = prompt, max_tokens = 2000)
-
-    #print(completion.choices[0].text)
 
     json_text=completion.choices[0].text
 
@@ -47,6 +47,6 @@ def crear_link(prompt_usuario, taller):
 
     tipo_tallerista = list(json_data.values())[0]
 
-    link = "https://www.superprof.cl/s/" + tipo_tallerista + "," + taller.get_lugar() + ",1.html"
+    link = "https://www.superprof.cl/s/" + tipo_tallerista + "," + lugar + ",1.html"
 
     return link
