@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Table
+from sqlalchemy import Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -8,7 +8,7 @@ class Tallerista(Base):
     id = Column(String, primary_key = True, index = True)
     nombre = Column(String)
     precio = Column(Integer)
-    valoracion = Column(Integer)
+    valoracion = Column(Float)
     valoracion_cantidad = Column(Integer)
     contacto = Column(String)
     fuente = Column(String)

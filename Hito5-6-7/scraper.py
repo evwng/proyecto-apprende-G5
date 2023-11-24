@@ -4,22 +4,7 @@ import time
 import math
 import re
 
-'''
-# Dado un html de superprof retorna una lista de tuplas (link, nombre, precio)
-def get_teacher_list_old(html):
-    list_ = []
-    soup = BeautifulSoup(html, 'lxml')
-    teachers = soup.find_all('li', class_='container see')
-    for teacher in teachers:
-        link = teacher.find('a')['href']
-        nombre = teacher.find('div', {'data-announcement-name': True})['data-announcement-name']
-        precio =  teacher.find('li', class_='pricing').find('span', class_='text').get_text().replace("$", "").replace(".", "").replace("/hr", "")
-        precio = int(precio)
-        list_.append((link, nombre, precio))
-        
-    return list_
-'''
-
+#Dado un html de superprof retorna una lista de tuplas
 def get_teacher_list(html):
     list_ = []
     soup = BeautifulSoup(html, 'lxml')
@@ -45,7 +30,7 @@ def get_teacher_list(html):
 def orden_ratings(teacher):
     return teacher[3] * math.log(1 + teacher[4])
 
-# Dado un url lo pasa a get_teacher_list y retorna su lista
+#Dado un url lo pasa a get_teacher_list y retorna su lista
 def get_list_from_link(url):
     driver = webdriver.Chrome()
     driver.get(url)

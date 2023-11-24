@@ -25,15 +25,9 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
 
     db_busqueda = models.Busqueda(id = str(uuid4()), prompt = busqueda.prompt, resultados = [])
 
-    #IMPORTANTE
-    '''
     link = crear_link(busqueda.prompt)
     
     talleristas = get_list_from_link(link)
-    '''
-
-    #EJEMPLO (BORRAR)
-    talleristas = [("Hola", "Juan", 3000, 5, 5), ("linnk", "Nombre", 34287, 3, 5)]
     
     for link, nombre, precio, valoracion, valoracion_cantidad in talleristas:
         db_tallerista = models.Tallerista(id = str(uuid4()),
@@ -57,15 +51,14 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
 
 @app.get("/busquedas", response_model = list[schemas.Busqueda])
 def leer_busquedas(db: Session = Depends(get_db)):
-    
     return db.query(models.Busqueda)
 
 @app.get("/busqueda/{id}", response_model = schemas.Busqueda)
 def leer_busqueda(id: str, db: Session = Depends(get_db)):
 
-    busqueda = db.query(models.Busqueda).filter(models.Busqueda.id == id).first()
+    db_busqueda = db.query(models.Busqueda).filter(models.Busqueda.id == id).first()
 
-    if busqueda is None:
+    if db_busqueda is None:
         raise HTTPException(status_code = 400, detail = "Búsqueda no encontrada")
     
-    return busqueda
+    return db_busqueda

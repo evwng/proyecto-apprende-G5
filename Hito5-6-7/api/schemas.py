@@ -5,7 +5,7 @@ from typing import List
 class Base_Tallerista(BaseModel):
     nombre: str
     precio: int
-    valoracion: int
+    valoracion: float
     valoracion_cantidad: int
     contacto: str
     fuente: str
@@ -17,7 +17,7 @@ class Tallerista(Base_Tallerista):
     class Config:
         orm_mode = True
 
-#BUSQUEDA
+#BÚSQUEDA
 class Base_Busqueda(BaseModel):
     prompt: str
 class Crear_Busqueda(Base_Busqueda):
