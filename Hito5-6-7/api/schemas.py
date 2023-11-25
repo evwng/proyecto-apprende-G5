@@ -15,7 +15,7 @@ class Tallerista(Base_Tallerista):
     id: str
     id_busqueda: str
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 #BÚSQUEDA
 class Base_Busqueda(BaseModel):
@@ -26,4 +26,4 @@ class Busqueda(Base_Busqueda):
     id: str
     resultados: List[Tallerista] = []
     class Config:
-        orm_mode = True
+        from_attributes = True

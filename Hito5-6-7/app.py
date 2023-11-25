@@ -16,18 +16,22 @@ def main():
         
         datos_formulario = {"prompt": termino_busqueda}
         
-        respuesta = requests.post("http://127.0.0.1:8000/busqueda", data = json.dumps(datos_formulario))
+        respuesta = requests.post("http://127.0.0.1:8000/busqueda", data = json.dumps(datos_formulario)).json()
 
+        st.write("ID de la búsqueda: " + respuesta["id"])
         st.write("Respuesta de la búsqueda:")
 
-        resultados = respuesta.json()["resultados"]
+        resultados = respuesta["resultados"]
+
         if resultados:
             st.dataframe(resultados,
                          column_config = {"nombre": "Nombre",
                                           "precio": "Precio",
                                           "valoracion": "Valoración",
                                           "valoracion_cantidad": "Cantidad de valoraciones",
-                                          "contacto": "Contacto",
+                                          "contacto": st.column_config.LinkColumn("Contacto",
+                                                                                  help = "Página de contacto (Doble click para acceder)",
+                                                                                  width = 1000),
                                           "fuente": None,
                                           "id": None,
                                           "id_busqueda": None,

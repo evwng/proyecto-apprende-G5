@@ -12,15 +12,14 @@ with st.container():
     id_busqueda = st.text_input("Ingrese el ID de la búsqueda que desea revivir (opcional):", "")
 
     if st.button("Realizar búsqueda"):
-        
-        respuesta = requests.get("http://127.0.0.1:8000/busquedas")
-
-        historial = respuesta.json()
 
         #NO SE INGRESA ID DE BÚSQUEDA -> SE MUESTRA HISTORIAL COMPLETO
         if not id_busqueda:
+
+            respuesta = requests.get("http://127.0.0.1:8000/busquedas")
+            historial = respuesta.json()
             for busqueda in reversed(historial):
-                with st.expander(f"Búsqueda {busqueda['id']} - Prompt: {busqueda['prompt']}"):
+                with st.expander(f"ID de la búsqueda: {busqueda['id']} - Prompt: {busqueda['prompt']}"):
                     st.write("Resultados:")
                     resultados = busqueda["resultados"]
                     if resultados:
@@ -29,7 +28,9 @@ with st.container():
                                                       "precio": "Precio",
                                                       "valoracion": "Valoración",
                                                       "valoracion_cantidad": "Cantidad de valoraciones",
-                                                      "contacto": "Contacto",
+                                                      "contacto": st.column_config.LinkColumn("Contacto",
+                                                                                              help = "Página de contacto (Doble click para acceder)",
+                                                                                              width = 1000),
                                                       "fuente": None,
                                                       "id": None,
                                                       "id_busqueda": None,
@@ -41,9 +42,7 @@ with st.container():
         else:
 
             respuesta = requests.get("http://127.0.0.1:8000/busqueda/" + id_busqueda)
-
             st.write("Respuesta de la búsqueda:")
-
             if respuesta.status_code == 200:
                 resultados = respuesta.json()["resultados"]
                 if resultados:
@@ -52,7 +51,9 @@ with st.container():
                                                  "precio": "Precio",
                                                  "valoracion": "Valoración",
                                                  "valoracion_cantidad": "Cantidad de valoraciones",
-                                                 "contacto": "Contacto",
+                                                 "contacto": st.column_config.LinkColumn("Contacto",
+                                                                                         help = "Página de contacto (Doble click para acceder)",
+                                                                                         width = 1000),
                                                  "fuente": None,
                                                  "id": None,
                                                  "id_busqueda": None,
@@ -60,4 +61,4 @@ with st.container():
                 else:
                     st.write("No se encontraron resultados para esta búsqueda.")
             elif respuesta.status_code == 400:
-                st.write("No se encontraron resultados para la búsqueda con el ID ingresado.")
+                st.write("No se encontró la búsqueda con el ID ingresado.")

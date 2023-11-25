@@ -35,17 +35,19 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
                                           precio = precio,
                                           valoracion = valoracion,
                                           valoracion_cantidad = valoracion_cantidad,
-                                          contacto = "SuperProf.cl" + link,
+                                          contacto = "https://www.superprof.cl" + link,
                                           fuente = "SuperProf.cl",
                                           id_busqueda = db_busqueda.id)
-        db.add(db_tallerista)
-        db.commit()
-        db.refresh(db_tallerista)
         db_busqueda.resultados.append(db_tallerista)
     
     db.add(db_busqueda)
     db.commit()
     db.refresh(db_busqueda)
+
+    for db_tallerista in db_busqueda.resultados:
+        db.add(db_tallerista)
+        db.commit()
+        db.refresh(db_tallerista)
 
     return db_busqueda
 
