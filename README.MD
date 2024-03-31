@@ -1,6 +1,6 @@
 # Proyecto APPRENDE
- Aplicación web que mediante el uso de inteligecia artificial y web scrapping ayuda al usuario a identificar los elementos requeridos para la realización de diversas actividades en forma de taller.
- Este proyecto se implemento en Análisis y Diseño de Software 2023-2 y será utilizado como proyecto base en Ingenieria de Software 2024-1
+ Aplicación web que mediante el uso de inteligencia artificial y web scrapping ayuda al usuario a identificar los elementos requeridos para la realización de diversas actividades en forma de taller.
+ Este proyecto se implementó en Análisis y Diseño de Software 2023-2 y será utilizado como proyecto base en Ingeniería de Software 2024-1.
 
 ### Grupo 5 2024-1:
 - Néstor Guajardo Carrizo - 202173132-6
