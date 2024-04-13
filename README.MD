@@ -2,11 +2,11 @@
  Aplicación web que mediante el uso de inteligencia artificial y web scrapping ayuda al usuario a identificar los elementos requeridos para la realización de diversas actividades en forma de taller.
  Este proyecto se implementó en Análisis y Diseño de Software 2023-2 y será utilizado como proyecto base en Ingeniería de Software 2024-1.
 
-## Instrucciones de instalación y ejecución:
+### Instrucciones de instalación y ejecución:
 - En el archivo crear_link.py se debe asignar la key de OpenAI a la variable openai.api_key.
 - Ejecutar el archivo script.py.
 
-## Instalaciones requeridas:
+### Instalaciones requeridas:
 - Python
 
 ### Grupo 5 2024-1:
