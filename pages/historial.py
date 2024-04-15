@@ -21,7 +21,7 @@ with st.container():
             for busqueda in reversed(historial):
                 with st.expander(f"ID de la búsqueda: {busqueda['id']} - Prompt: {busqueda['prompt']}"):
                     st.write("Resultados:")
-                    resultados = busqueda["resultados"]
+                    resultados = busqueda["resultados_talleristas"]
                     if resultados:
                         st.dataframe(resultados,
                                      column_config = {"nombre": "Nombre",
@@ -44,7 +44,7 @@ with st.container():
             respuesta = requests.get("http://127.0.0.1:8000/busqueda/" + id_busqueda)
             st.write("Respuesta de la búsqueda:")
             if respuesta.status_code == 200:
-                resultados = respuesta.json()["resultados"]
+                resultados = respuesta.json()["resultados_talleristas"]
                 if resultados:
                     st.dataframe(resultados,
                                  column_config = {"nombre": "Nombre",

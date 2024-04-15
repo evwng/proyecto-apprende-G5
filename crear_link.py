@@ -22,7 +22,7 @@ def crear_link(prompt_usuario):
     prompt += prompt_usuario
     prompt += "los insumos tienen que ser consumibles"
     
-    completion = openai.Completion.create(engine = "text-davinci-003", prompt = prompt, max_tokens = 2000)
+    completion = openai.Completion.create(engine = "gpt-3.5-turbo-instruct", prompt = prompt, max_tokens = 2000)
 
     json_text=completion.choices[0].text
 

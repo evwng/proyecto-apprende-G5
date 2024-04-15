@@ -21,7 +21,7 @@ def main():
         st.write("ID de la búsqueda: " + respuesta["id"])
         st.write("Respuesta de la búsqueda:")
 
-        resultados = respuesta["resultados"]
+        resultados = respuesta["resultados_talleristas"]
 
         if resultados:
             st.dataframe(resultados,
