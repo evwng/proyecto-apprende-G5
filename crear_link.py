@@ -1,7 +1,7 @@
 import openai
 import json
 import creds
-
+from googlesearch import search 
 def crear_link(prompt_usuario):
 
     lugar = "Providencia--Chile,-33.4314474,-70.6093325"
@@ -20,7 +20,6 @@ def crear_link(prompt_usuario):
     prompt += "\n"
     prompt += "Por favor, proporciona una descripción del taller, incluyendo el tipo de tallerista y la lista de insumos necesarios con las cantidades correspondientes.\n"
     prompt += prompt_usuario
-    prompt += "los insumos tienen que ser consumibles"
     
     completion = openai.Completion.create(engine = "gpt-3.5-turbo-instruct", prompt = prompt, max_tokens = 2000)
 
@@ -47,7 +46,17 @@ def crear_link(prompt_usuario):
     json_data = json.loads(json_text)
 
     tipo_tallerista = list(json_data.values())[0]
+    
+    lista_insumos=[]
+    insumos=list(json_data.values())[1:]
+    for key in insumos[0]:
+        query="comprar "
+        query+=key
+        query+=" online"
+
+        for link_insumo in search(query, tld="co.in", num=1, stop=1, pause=2): 
+            lista_insumos.append((key,link_insumo))
 
     link = "https://www.superprof.cl/s/" + tipo_tallerista + "," + lugar + ",1.html"
 
-    return link
+    return link, lista_insumos
