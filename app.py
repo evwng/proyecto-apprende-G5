@@ -29,6 +29,7 @@ def main():
                                           "precio": "Precio",
                                           "valoracion": "Valoración",
                                           "valoracion_cantidad": "Cantidad de valoraciones",
+                                          "contacto_estado": "Estado del proceso de contacto",
                                           "contacto": st.column_config.LinkColumn("Contacto",
                                                                                   help = "Página de contacto (Doble click para acceder)",
                                                                                   width = 1000),
@@ -41,7 +42,11 @@ def main():
 
     with st.container():
         st.write("PROYECTO APPRENDE")
-        st.write("Grupo 8:")
+        st.write("Grupo 5 2024-1:")
+        st.markdown("- Néstor Guajardo Carrizo - 202173132-6")
+        st.markdown("- Gabriel Pinto Fernández - 201873052-1")
+        st.markdown("- Eva Wang Liu - 202111004-6")
+        st.write("Grupo 8 2023-2:")
         st.markdown("- Néstor Guajardo Carrizo - 202173132-6")
         st.markdown("- Pablo Guzmán Castro - 202173011-7")
         st.markdown("- Eva Wang Liu - 202111004-6")

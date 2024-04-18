@@ -25,7 +25,9 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
 
     db_busqueda = models.Busqueda(id = str(uuid4()), prompt = busqueda.prompt, resultados_talleristas = [])
 
-    link, insumos_lista = crear_link(busqueda.prompt)
+    link = crear_link(busqueda.prompt)
+
+    #link, insumos_lista = crear_link(busqueda.prompt)
     
     talleristas = get_list_from_link(link)
     
@@ -35,18 +37,20 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
                                           precio = precio,
                                           valoracion = valoracion,
                                           valoracion_cantidad = valoracion_cantidad,
-                                          contacto = "https://www.superprof.cl" + link,
                                           contacto_estado = "Sin contactar",
+                                          contacto = "https://www.superprof.cl" + link,
                                           fuente = "SuperProf.cl",
                                           id_busqueda = db_busqueda.id)
         db_busqueda.resultados_talleristas.append(db_tallerista)
 
+    '''
     for nombre, link in insumos_lista:
         db_insumo = models.Insumo(id = str(uuid4),
                                   nombre = nombre,
                                   fuente = link,
                                   id_busqueda = db_busqueda.id)
         db_busqueda.resultados_insumos.append(db_insumo)
+    '''
     
     db.add(db_busqueda)
     db.commit()
@@ -57,10 +61,12 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
         db.commit()
         db.refresh(db_tallerista)
     
+    '''
     for db_insumo in db_busqueda.resultados_insumos:
         db.add(db_insumo)
         db.commit()
         db.refresh(db_insumo)
+    '''
 
     return db_busqueda
 

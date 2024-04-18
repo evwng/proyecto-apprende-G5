@@ -7,8 +7,8 @@ class Base_Tallerista(BaseModel):
     precio: int
     valoracion: float
     valoracion_cantidad: int
-    contacto: str
     contacto_estado: str
+    contacto: str
     fuente: str
 class Crear_Tallerista(Base_Tallerista):
     pass
@@ -18,6 +18,7 @@ class Tallerista(Base_Tallerista):
     class Config:
         from_attributes = True
 
+'''
 #INSUMO
 class Base_Insumo(BaseModel):
     nombre: str
@@ -29,6 +30,7 @@ class Insumo(Base_Insumo):
     id_busqueda: str
     class Config:
         from_attributes = True
+'''
 
 #BÚSQUEDA
 class Base_Busqueda(BaseModel):
@@ -38,6 +40,6 @@ class Crear_Busqueda(Base_Busqueda):
 class Busqueda(Base_Busqueda):
     id: str
     resultados_talleristas: List[Tallerista] = []
-    resultados_insumos: List[Insumo] = []
+    #resultados_insumos: List[Insumo] = []
     class Config:
         from_attributes = True
