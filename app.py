@@ -4,7 +4,7 @@ import requests
 
 def main():
 
-    st.set_page_config(page_title="Proyecto Apprende", layout="wide")
+    st.set_page_config(page_title = "Proyecto Apprende", layout = "wide")
 
     with st.container():
         st.header("BÚSQUEDA DE TALLERISTAS")

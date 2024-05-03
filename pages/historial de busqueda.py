@@ -1,10 +1,13 @@
 import streamlit as st
 import requests
 
-st.set_page_config(page_title = "Historial", layout = "wide")
-st.title = "Historial"
+st.set_page_config(page_title = "Historial de búsqueda",
+                   layout = "wide")
+
+st.title = "Historial de búsqueda"
 
 with st.container():
+    
     st.header("HISTORIAL DE BÚSQUEDA")
 
 with st.container():
@@ -15,7 +18,6 @@ with st.container():
 
         #NO SE INGRESA ID DE BÚSQUEDA -> SE MUESTRA HISTORIAL COMPLETO
         if not id_busqueda:
-
             respuesta = requests.get("http://127.0.0.1:8000/busquedas")
             historial = respuesta.json()
             for busqueda in reversed(historial):
@@ -41,7 +43,6 @@ with st.container():
         
         #SE INGRESA ID DE BÚSQUEDA -> SE MUESTRA RESULTADOS DE DICHA BÚSQUEDA
         else:
-
             respuesta = requests.get("http://127.0.0.1:8000/busqueda/" + id_busqueda)
             st.write("Respuesta de la búsqueda:")
             if respuesta.status_code == 200:

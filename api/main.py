@@ -20,10 +20,13 @@ def get_db():
     finally:
         db.close()
 
+#BÚSQUEDA: POST
 @app.post("/busqueda", response_model = schemas.Busqueda)
 def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_db)):
 
-    db_busqueda = models.Busqueda(id = str(uuid4()), prompt = busqueda.prompt, resultados_talleristas = [])
+    db_busqueda = models.Busqueda(id = str(uuid4()),
+                                  prompt = busqueda.prompt,
+                                  resultados_talleristas = [])
 
     link = crear_link(busqueda.prompt)
 
@@ -43,14 +46,12 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
                                           id_busqueda = db_busqueda.id)
         db_busqueda.resultados_talleristas.append(db_tallerista)
 
-    '''
-    for nombre, link in insumos_lista:
-        db_insumo = models.Insumo(id = str(uuid4),
-                                  nombre = nombre,
-                                  fuente = link,
-                                  id_busqueda = db_busqueda.id)
-        db_busqueda.resultados_insumos.append(db_insumo)
-    '''
+    #for nombre, link in insumos_lista:
+    #    db_insumo = models.Insumo(id = str(uuid4),
+    #                              nombre = nombre,
+    #                              fuente = link,
+    #                              id_busqueda = db_busqueda.id)
+    #    db_busqueda.resultados_insumos.append(db_insumo)
     
     db.add(db_busqueda)
     db.commit()
@@ -61,19 +62,20 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
         db.commit()
         db.refresh(db_tallerista)
     
-    '''
-    for db_insumo in db_busqueda.resultados_insumos:
-        db.add(db_insumo)
-        db.commit()
-        db.refresh(db_insumo)
-    '''
+    #for db_insumo in db_busqueda.resultados_insumos:
+    #    db.add(db_insumo)
+    #    db.commit()
+    #    db.refresh(db_insumo)
 
     return db_busqueda
 
+#BÚSQUEDA: GET (ALL)
 @app.get("/busquedas", response_model = list[schemas.Busqueda])
 def leer_busquedas(db: Session = Depends(get_db)):
+
     return db.query(models.Busqueda)
 
+#BÚSQUEDA: GET (ONE)
 @app.get("/busqueda/{id}", response_model = schemas.Busqueda)
 def leer_busqueda(id: str, db: Session = Depends(get_db)):
 
@@ -84,6 +86,7 @@ def leer_busqueda(id: str, db: Session = Depends(get_db)):
     
     return db_busqueda
 
+#BÚSQUEDA: PUT
 @app.put("/tallerista/{id}/{contacto_estado}", response_model = schemas.Tallerista)
 def actualizar_tallerista_contacto_estado(id: str, contacto_estado: str, db: Session = Depends(get_db)):
 
@@ -97,3 +100,23 @@ def actualizar_tallerista_contacto_estado(id: str, contacto_estado: str, db: Ses
     db.commit()
 
     return db_tallerista
+
+#PROPUESTA: POST
+@app.post("/propuesta")
+def crear_propuesta(propuesta: schemas.Crear_Propuesta, db: Session = Depends(get_db)):
+
+    if db.query(models.Tallerista).filter(models.Tallerista.id == propuesta.id_tallerista).first() is None:
+        raise HTTPException(status_code = 400, detail = "Identificador no válido")
+
+    db_propuesta = models.Propuesta(id = str(uuid4()),
+                                    descripcion = propuesta.descripcion,
+                                    modalidad = propuesta.modalidad,
+                                    numero_vacantes = propuesta.numero_vacantes,
+                                    numero_sesiones = propuesta.numero_sesiones,
+                                    id_tallerista = propuesta.id_tallerista)
+    
+    db.add(db_propuesta)
+    db.commit()
+    db.refresh(db_propuesta)
+
+    return db_propuesta
