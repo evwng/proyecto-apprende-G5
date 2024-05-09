@@ -1,7 +1,8 @@
 import openai
 import json
 import creds
-from googlesearch import search 
+from googlesearch import search
+
 def crear_link(prompt_usuario):
 
     lugar = "Providencia--Chile,-33.4314474,-70.6093325"
