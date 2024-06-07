@@ -9,6 +9,9 @@
 ### Instalaciones requeridas:
 - Python
 
+### Hito 4:
+- Video: https://youtu.be/HGup0GHIMac
+
 ### Grupo 5 2024-1:
 - Néstor Guajardo Carrizo - 202173132-6
 - Gabriel Pinto Fernández - 201873052-1
