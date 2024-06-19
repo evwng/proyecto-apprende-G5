@@ -6,8 +6,8 @@ from .database import SessionLocal, engine
 
 from uuid import uuid4
 
-from crear_link import *
-from scraper import *
+from crear_link import crear_link
+from scraper import get_list_from_link
 
 models.Base.metadata.create_all(bind = engine)
 
@@ -29,8 +29,6 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
                                   resultados_talleristas = [])
 
     link = crear_link(busqueda.prompt)
-
-    #link, insumos_lista = crear_link(busqueda.prompt)
     
     talleristas = get_list_from_link(link)
     
@@ -45,13 +43,6 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
                                           fuente = "SuperProf.cl",
                                           id_busqueda = db_busqueda.id)
         db_busqueda.resultados_talleristas.append(db_tallerista)
-
-    #for nombre, link in insumos_lista:
-    #    db_insumo = models.Insumo(id = str(uuid4),
-    #                              nombre = nombre,
-    #                              fuente = link,
-    #                              id_busqueda = db_busqueda.id)
-    #    db_busqueda.resultados_insumos.append(db_insumo)
     
     db.add(db_busqueda)
     db.commit()
@@ -61,11 +52,6 @@ def crear_busqueda(busqueda: schemas.Crear_Busqueda, db: Session = Depends(get_d
         db.add(db_tallerista)
         db.commit()
         db.refresh(db_tallerista)
-    
-    #for db_insumo in db_busqueda.resultados_insumos:
-    #    db.add(db_insumo)
-    #    db.commit()
-    #    db.refresh(db_insumo)
 
     return db_busqueda
 

@@ -48,20 +48,6 @@ def crear_link(prompt_usuario):
 
     tipo_tallerista = list(json_data.values())[0]
     
-    '''
-    lista_insumos=[]
-    insumos=list(json_data.values())[1:]
-    for key in insumos[0]:
-        query="comprar "
-        query+=key
-        query+=" online"
-
-        for link_insumo in search(query, tld="co.in", num=1, stop=1, pause=2): 
-            lista_insumos.append((key,link_insumo))
-    '''
-
     link = "https://www.superprof.cl/s/" + tipo_tallerista + "," + lugar + ",1.html"
 
     return link
-
-    #return link, lista_insumos

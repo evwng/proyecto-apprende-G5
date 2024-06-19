@@ -17,22 +17,12 @@ class Tallerista(Base):
     id_busqueda = Column(String, ForeignKey("Busqueda.id"))
     busqueda = relationship("Busqueda", back_populates = "resultados_talleristas")
 
-#INSUMO
-#class Insumo(Base):
-#    __tablename__ = "Insumo"
-#    id = Column(String, primary_key = True, index = True)
-#    nombre = Column(String)
-#    fuente = Column(String)
-#    id_busqueda = Column(String, ForeignKey("Busqueda.id"))
-#    busqueda = relationship("Busqueda", back_populates = "resultados_insumos")
-
 #BÚSQUEDA
 class Busqueda(Base):
     __tablename__ = "Busqueda"
     id = Column(String, primary_key = True, index = True)
     prompt = Column(String)
     resultados_talleristas = relationship("Tallerista", back_populates = "busqueda")
-    #resultados_insumos = relationship("Insumo", back_populates = "busqueda")
 
 #PROPUESTA
 class Propuesta(Base):
